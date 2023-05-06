@@ -1,3 +1,4 @@
+<a href="<?php BASE_URL;?>tarefa/adicionar">Adicionar Tarefa</a>
 <table border="1" width="100%">
     <tr>
         <th>
@@ -25,15 +26,17 @@
             <?=$tarefa['descricao'];?>
         </td>
         <td>
-            <?=$tarefa['data'];?>
+            <?=$tarefa['data_de_vencimento'];?>
         </td>
         <td>
             <?=$tarefa['status'];?>
         </td>
         <td>
-            Editar
+            <a href="<?php echo BASE_URL; ?>tarefa/realizar/<?=$tarefa['id']?>">Marcar Como Realizada</a>
 
-            Excluir
+            <a href="<?php echo BASE_URL; ?>tarefa/editar/<?=$tarefa['id']?>">Editar</a>
+
+            <a href="<?php echo BASE_URL; ?>tarefa/excluir/<?=$tarefa['id']?>">Excluir</a>
         </td>
     </tr>
     <?php endforeach; ?>
