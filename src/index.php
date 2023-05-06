@@ -1,28 +1,21 @@
 <?php 
 session_start();
 require 'connection.php';
+
+spl_autoload_register(function($class){
+
+    if (file_exists('controllers/'.$class.'.php')){
+        require('controllers/'.$class.'.php');
+    } 
+    else if(file_exists('models/'.$class.'.php')){
+        require('models/'.$class.'.php');
+    }
+    else if(file_exists('core/'.$class.'.php')){
+        require('core/'.$class.'.php');
+    }
+});
+
+$core = new Core();
+$core->run();
+
 ?>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Gerenciador de Tarefas</title>
-</head>
-<body>
-    <header>
-        <h1>Gerenciador de Tarefas</h1>
-        <form method="post">
-            <p>Adicionar Tarefa</p>
-            <div>
-                Título <input type="text" name="titulo" id="titulo">
-                Descrição <input type="text" name="descricao" id="descricao">
-                Data e Hora <input type="datetime-local" name="datahora" id="datahora">
-                <input type="submit" name="Adicionar" value="Adicionar">
-            </div>
-        </form>
-    </header>
-    <footer>
-        <?php echo "lista tarefas" ?>
-    </footer>
-</body>
-</html>
