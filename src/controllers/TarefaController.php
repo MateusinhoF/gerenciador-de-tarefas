@@ -3,7 +3,9 @@
 class TarefaController extends Controller{
 
     public function index(){
-        $this->loadTemplate('index');
+        $tarefa = new Tarefa();
+        $dados = $tarefa->getTarefas();
+        $this->loadTemplate('index',$dados);
     }
 
     public function adicionar(){

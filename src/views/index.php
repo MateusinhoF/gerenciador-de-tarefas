@@ -1,3 +1,6 @@
 <?php
 
-echo "view tarefa";
+echo "view name ".$viewName;
+echo "</br>";
+extract($viewData);
+echo $titulo;
