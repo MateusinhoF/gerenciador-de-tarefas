@@ -14,7 +14,9 @@ class TarefaController extends Controller{
     }
 
     public function salvarNovaTarefa(){
+
         if(!empty($_POST['titulo']) && !empty($_POST['descricao']) && !empty($_POST['data_de_vencimento'])){
+           
             $tarefa = new Tarefa();
             $dados = [
                 'titulo' => $_POST['titulo'],
@@ -25,7 +27,23 @@ class TarefaController extends Controller{
             $tarefa->adicionarTarefa($dados);
             
             header("Location: ".BASE_URL);
+        
         }
+
+        $erros = array();        
+        if (empty($_POST['titulo'])){
+            array_push($erros,'Insira um título');
+        }
+        if (empty($_POST['descricao'])){
+            array_push($erros,'Insira uma descrição');
+        }
+        if (empty($_POST['data_de_vencimento'])){
+            array_push($erros,'Insira uma data de vencimento');
+        }
+
+        $data = ['erros'=>$erros];
+
+        $this->loadTemplate('adicionarTarefa',$data);
     }
     
     public function editar($id){
@@ -33,7 +51,7 @@ class TarefaController extends Controller{
         if(!empty($id)){
             $tarefa = new Tarefa();
 
-            if (!empty($_POST['titulo'])){
+            if (!empty($_POST['titulo']) && !empty($_POST['descricao']) && !empty($_POST['data_de_vencimento'])){
                 $dados = [
                     'id' => $id,
                     'titulo' => $_POST['titulo'],
@@ -41,7 +59,30 @@ class TarefaController extends Controller{
                     'data_de_vencimento' => $_POST['data_de_vencimento']
                 ];
                 $tarefa->editar($dados);
-            }else{
+                header("Location: ".BASE_URL);
+            }
+            else if(isset($_POST['titulo']) && isset($_POST['descricao']) && isset($_POST['data_de_vencimento'])){
+                $erros = array();        
+                if (empty($_POST['titulo'])){
+                    array_push($erros,'Insira um título');
+                }
+                if (empty($_POST['descricao'])){
+                    array_push($erros,'Insira uma descrição');
+                }
+                if (empty($_POST['data_de_vencimento'])){
+                    array_push($erros,'Insira uma data de vencimento');
+                }
+
+                
+                $dados['info'] = $tarefa->get($id);
+                $data = [
+                    'erros'=>$erros,
+                    'info'=>$dados['info']
+                ];
+
+                $this->loadTemplate('editarTarefa',$data);
+            }
+            else{
 
                 $dados['info'] = $tarefa->get($id);
 
@@ -49,10 +90,11 @@ class TarefaController extends Controller{
                     $this->loadTemplate('editarTarefa', $dados);
                     exit;
                 }
+                header("Location: ".BASE_URL);
                 
             }
         }
-        header("Location: ".BASE_URL);
+        
     }
 
     public function excluir($id){

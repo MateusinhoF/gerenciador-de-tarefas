@@ -34,7 +34,7 @@
         <td>
             <?php
             if ($tarefa['status'] == false){
-                echo "<a href=".BASE_URL."tarefa/concluido/".$tarefa['id'].">Concluído</a>";
+                echo "<a href=".BASE_URL."tarefa/concluido/".$tarefa['id'].">Concluir</a>";
             }else{
                 echo "<a href=".BASE_URL."tarefa/naoConcluido/".$tarefa['id'].">Não Concluído</a>";
             }
