@@ -1,17 +1,10 @@
 <?php
 
-require 'environment.php';
-
-if (ENVIRONMENT == 'development'){
-    define("BASE_URL","http://localhost/");
-    $infodb['dbname'] = 'gerenciador_tarefas';
-    $infodb['host'] = 'db';
-    $infodb['dbuser'] = 'root';
-    $infodb['dbpassword'] = 'root';
-}else{
-    echo "PRODUCTION";
-    exit;
-}
+define("BASE_URL","http://localhost/");
+$infodb['dbname'] = 'gerenciador_tarefas';
+$infodb['host'] = 'db';
+$infodb['dbuser'] = 'root';
+$infodb['dbpassword'] = 'root';
 
 global $db;
 

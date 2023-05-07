@@ -102,7 +102,7 @@ class TarefaController extends Controller{
             $tarefa = new Tarefa();
             $tarefa->excluir($id);
         }
-        header("Location ".BASE_URL);
+        header("Location: ".BASE_URL);
     }
 
     public function concluido($id){
