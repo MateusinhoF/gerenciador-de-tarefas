@@ -7,3 +7,4 @@
         <input type="submit" name="adicionar" value="Adicionar">
     </div>
 </form>
+<a href="<?=BASE_URL?>">Voltar ao início</a>

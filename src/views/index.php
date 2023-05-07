@@ -26,14 +26,20 @@
             <?=$tarefa['descricao'];?>
         </td>
         <td>
-            <?=$tarefa['data_de_vencimento'];?>
+            <?php echo date('d/m/Y H:i',strtotime($tarefa['data_de_vencimento']));?>
         </td>
         <td>
-            <?=$tarefa['status'];?>
+            <?php echo $tarefa['status'] == false ? 'Para concluir' : 'Concluído';?>
         </td>
         <td>
-            <a href="<?php echo BASE_URL; ?>tarefa/realizar/<?=$tarefa['id']?>">Marcar Como Realizada</a>
-
+            <?php
+            if ($tarefa['status'] == false){
+                echo "<a href=".BASE_URL."tarefa/concluido/".$tarefa['id'].">Concluído</a>";
+            }else{
+                echo "<a href=".BASE_URL."tarefa/naoConcluido/".$tarefa['id'].">Não Concluído</a>";
+            }
+            ?>
+            
             <a href="<?php echo BASE_URL; ?>tarefa/editar/<?=$tarefa['id']?>">Editar</a>
 
             <a href="<?php echo BASE_URL; ?>tarefa/excluir/<?=$tarefa['id']?>">Excluir</a>

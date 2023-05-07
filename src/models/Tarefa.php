@@ -28,12 +28,12 @@ class Tarefa extends Model{
     }
 
     public function adicionarTarefa($dados){
-        $sql = "INSERT INTO tarefas (titulo, descricao, data_de_vencimento) VALUES (:titulo, :descricao, :data_de_vencimento)";
+        $sql = "INSERT INTO tarefas (titulo, descricao, data_de_vencimento, status) VALUES (:titulo, :descricao, :data_de_vencimento, :status)";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(':titulo',$dados['titulo']);
         $sql->bindValue(':descricao',$dados['descricao']);
         $sql->bindValue(':data_de_vencimento',$dados['data_de_vencimento']);
-        //tratar status
+        $sql->bindValue(':status', false, PDO::PARAM_BOOL);
         $sql->execute();
     }
 
@@ -50,12 +50,12 @@ class Tarefa extends Model{
     }
 
     public function editar($dados){
-        $sql = "UPDATE tarefas SET titulo = :titulo, descricao = :descricao, data_de_vencimento = :data_de_vencimento";
+        $sql = "UPDATE tarefas SET titulo = :titulo, descricao = :descricao, data_de_vencimento = :data_de_vencimento WHERE id = :id";
         $sql = $this->db->prepare($sql);
         $sql->bindValue(':titulo',$dados['titulo']);
         $sql->bindValue(':descricao',$dados['descricao']);
         $sql->bindValue(':data_de_vencimento',$dados['data_de_vencimento']);
-        //tratar status
+        $sql->bindValue(':id',$dados['id']);
         $sql->execute();
     }
 
@@ -67,11 +67,17 @@ class Tarefa extends Model{
 
     }
 
-    public function realizar($id){
-        
+    public function concluido($id){
+        $sql = "UPDATE tarefas SET status = true WHERE id = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(':id',$id);
+        $sql->execute();
     }
 
-    public function naoRealizado($id){
-        
+    public function naoConcluido($id){
+        $sql = "UPDATE tarefas SET status = false WHERE id = :id";
+        $sql = $this->db->prepare($sql);
+        $sql->bindValue(':id',$id);
+        $sql->execute();
     }
 }

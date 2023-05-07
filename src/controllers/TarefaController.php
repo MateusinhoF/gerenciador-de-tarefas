@@ -33,14 +33,13 @@ class TarefaController extends Controller{
         if(!empty($id)){
             $tarefa = new Tarefa();
 
-            if (!empty($_POST['id'])){
+            if (!empty($_POST['titulo'])){
                 $dados = [
-                    'id' => $_POST['id'],
+                    'id' => $id,
                     'titulo' => $_POST['titulo'],
                     'descricao' => $_POST['descricao'],
                     'data_de_vencimento' => $_POST['data_de_vencimento']
                 ];
-
                 $tarefa->editar($dados);
             }else{
 
@@ -48,7 +47,9 @@ class TarefaController extends Controller{
 
                 if(isset($dados['info']['id'])){
                     $this->loadTemplate('editarTarefa', $dados);
+                    exit;
                 }
+                
             }
         }
         header("Location: ".BASE_URL);
@@ -59,13 +60,17 @@ class TarefaController extends Controller{
             $tarefa = new Tarefa();
             $tarefa->excluir($id);
         }
-        header("Location".BASE_URL);
+        header("Location ".BASE_URL);
     }
 
-    public function realizar($id){
-        
+    public function concluido($id){
+        $tarefa = new Tarefa();
+        $tarefa->concluido($id);
+        header("Location: ".BASE_URL);
     }
-    public function naoRealizado($id){
-        
+    public function naoConcluido($id){
+        $tarefa = new Tarefa();
+        $tarefa->naoConcluido($id);
+        header("Location: ".BASE_URL);
     }
 }

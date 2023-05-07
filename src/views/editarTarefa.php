@@ -7,3 +7,4 @@
         <input type="submit" name="salvar" value="Salvar">
     </div>
 </form>
+<a href="<?=BASE_URL?>">Voltar ao início</a>
