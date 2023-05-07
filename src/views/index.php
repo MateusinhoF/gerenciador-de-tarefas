@@ -1,49 +1,67 @@
-<a href="<?php BASE_URL;?>tarefa/adicionar">Adicionar Tarefa</a>
-<table border="1" width="100%">
+<div class="text-end">
+    <a class="btn btn-primary rounded-pill px-3" href="<?php BASE_URL;?>tarefa/adicionar">Adicionar Tarefa</a>
+</div>
+<div class="container-fluid flex border border-dark p-3 my-3">
+<table class="table table-striped table-hover">
+    <thead>
     <tr>
-        <th>
+        <th class="">
             Título
-        </th>
-        <th>
+        </th class="">
+        <th class="">
             Descrição
         </th>
-        <th>
+        <th class="">
             Data
         </th>
-        <th>
+        <th class="">
             Status
         </th>
-        <th>
+        <th class="">
             Opções
         </th>
     </tr>
+    </thead>
+    <tbody>
     <?php foreach($lista as $tarefa): ?>
     <tr>
-        <td>
+        <td class="">
             <?=$tarefa['titulo'];?>
         </td>
-        <td>
+        <td class="">
             <?=$tarefa['descricao'];?>
         </td>
-        <td>
+        <td class="">
             <?php echo date('d/m/Y H:i',strtotime($tarefa['data_de_vencimento']));?>
         </td>
-        <td>
+        <td class="">
             <?php echo $tarefa['status'] == false ? 'Para concluir' : 'Concluído';?>
         </td>
-        <td>
-            <?php
-            if ($tarefa['status'] == false){
-                echo "<a href=".BASE_URL."tarefa/concluido/".$tarefa['id'].">Concluir</a>";
-            }else{
-                echo "<a href=".BASE_URL."tarefa/naoConcluido/".$tarefa['id'].">Não Concluído</a>";
-            }
-            ?>
+        <td class="">
+            <?php if ($tarefa['status'] == false): ?>
+                <a 
+                    class="btn btn-success rounded-pill px-3"
+                    href="<?php echo BASE_URL."tarefa/concluido/".$tarefa['id']?>"
+                >Concluir</a>
+            <?php else: ?>
+                <a 
+                    class="btn btn-secondary rounded-pill px-3"
+                    href="<?php echo BASE_URL."tarefa/naoConcluido/".$tarefa['id']?>"
+                >Não Concluído</a>
+            <?php endif; ?>
             
-            <a href="<?php echo BASE_URL; ?>tarefa/editar/<?=$tarefa['id']?>">Editar</a>
+            <a 
+                class="btn btn-info rounded-pill px-3"
+                href="<?php echo BASE_URL; ?>tarefa/editar/<?=$tarefa['id']?>"
+            >Editar</a>
 
-            <a href="<?php echo BASE_URL; ?>tarefa/excluir/<?=$tarefa['id']?>">Excluir</a>
+            <a 
+                class="btn btn-danger rounded-pill px-3"
+                href="<?php echo BASE_URL; ?>tarefa/excluir/<?=$tarefa['id']?>"
+            >Excluir</a>
         </td>
     </tr>
     <?php endforeach; ?>
+    </tbody>
 </table>
+</div>

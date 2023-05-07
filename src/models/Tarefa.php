@@ -17,7 +17,7 @@ class Tarefa extends Model{
     }
     public function getTarefas(){
         $array = array();
-        $sql = "SELECT * FROM tarefas";
+        $sql = "SELECT * FROM tarefas ORDER BY data_de_vencimento";
         $sql = $this->db->query($sql);
 
         if($sql->rowCount() > 0){
